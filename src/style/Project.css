@@ -1,0 +1,29 @@
+.card {
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #252e2e;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.link {
+  color: #3ba6ec;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #2980b9;
+}

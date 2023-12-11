@@ -1,0 +1,20 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 18px;
+  align-items: center;
+  padding: 40px 10px;
+  background-color: #252e2e;
+  border-radius: 10px;
+  color: #ecf0f1;
+  margin: auto;
+}
+
+.project-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
