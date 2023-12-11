@@ -12,25 +12,17 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/raufrasulzada.github.io/flash-cards">Home</Link>
+              <Link to="/flashcards">Home</Link>
             </li>
             <li>
-              <Link to="/raufrasulzada.github.io/flashcards-page">
-                Flash Cards
-              </Link>
+              <Link to="/flashcardspage">Flash Cards</Link>
             </li>
           </ul>
         </nav>
 
         <Routes>
-          <Route
-            path="/raufrasulzada.github.io/flash-cards"
-            element={<Home />}
-          />
-          <Route
-            path="/raufrasulzada.github.io/flashcards-page"
-            element={<FlashCards />}
-          />
+          <Route path="/flashcards" element={<Home />} />
+          <Route path="/flashcardspage" element={<FlashCards />} />
         </Routes>
       </div>
     </Router>
