@@ -1,4 +1,4 @@
-.card {
+.cardProj {
   border: 1px solid white;
   border-radius: 8px;
   padding: 16px;
@@ -13,7 +13,7 @@
   gap: 15px;
 }
 
-.card:hover {
+.cardProj:hover {
   transform: translateY(-4px);
 }
 

@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
-function FlashCards() {
+export default function FlashCards({ flashCard }) {
+  const [turn, setTurn] = useState(false);
   return (
-    <div>
-      <h2>Flash Cards Page</h2>
+    <div
+      key={flashCard.id}
+      className={`card ${turn ? "turn" : ""}`}
+      onClick={() => setTurn(!turn)}
+    >
+      <div className="front">
+        {flashCard.front}
+        <div className="flash-card-options">
+          {flashCard.options.map((option, index) => {
+            return (
+              <div key={index} className="flash-card-option">
+                {option}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="back">{flashCard.back}</div>
     </div>
   );
 }
-
-export default FlashCards;

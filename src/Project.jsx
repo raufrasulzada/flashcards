@@ -10,7 +10,7 @@ function Project({ title, description, link }) {
 
   return (
     <li
-      className="card"
+      className="cardProj"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}
