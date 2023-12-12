@@ -1,6 +1,9 @@
 body {
   margin: 0;
-  background-image: linear-gradient(to right, #decba4, #3e5151);
+  height: 100%;
+  background: linear-gradient(225deg, #ff0000, #00ffff);
+  background-size: 300% 300%;
+  animation: background 10s linear infinite;
 }
 
 .home-container {
@@ -20,9 +23,11 @@ body {
 
 .card-container {
   display: grid;
-  align-items: center;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 85px;
 }
 
 .card {
@@ -32,7 +37,7 @@ body {
   position: relative;
   border-radius: 0.25rem;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.25);
-  background-color: silver;
+  background-color: #f3f3f3;
   height: 150px;
   transform-style: preserve-3d;
   transform: perspective(850px) rotateY(var(--rotate-y-axis, 0))
@@ -43,7 +48,7 @@ body {
 
 .card:hover {
   --translate-y-axis: -4px;
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 5px 2px rgba(19, 18, 18, 0.45);
 }
 
 .card.turn {
@@ -82,13 +87,27 @@ body {
 nav {
   position: fixed;
   top: 0;
-  background-color: #252e2e;
+  background: transparent;
+  backdrop-filter: blur(8px);
+  border: 1px solid silver;
   width: 100%;
   padding: 25px;
+  z-index: 100;
+}
+
+.btn {
+  border: 1px solid rgb(20, 20, 20);
+  padding: 15px 40px;
+  border-radius: 20px;
+  background: linear-gradient(225deg, #910404, #028b8b);
 }
 
 nav ul li:hover {
   transform: scale(1.15);
+}
+
+nav li {
+  padding: 5px;
 }
 
 nav ul {
@@ -110,4 +129,16 @@ nav ul li a {
   text-decoration: none;
   color: white;
   font-weight: bold;
+}
+
+@keyframes background {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
 }

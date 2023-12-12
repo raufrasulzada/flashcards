@@ -5,10 +5,12 @@
   font-size: 18px;
   align-items: center;
   padding: 40px 10px;
-  background-color: #252e2e;
+  background-color: transparent;
   border-radius: 10px;
   color: #ecf0f1;
   margin: auto;
+
+  border: 2px solid rgb(20, 20, 20);
 }
 
 .project-list {

@@ -36,10 +36,14 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/flashcards">Home</Link>
+              <Link className="btn" to="/flashcards">
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/flashcardspage">Flash Cards</Link>
+              <Link className="btn" to="/flashcardspage">
+                Flash Cards
+              </Link>
             </li>
           </ul>
         </nav>
