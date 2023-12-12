@@ -2,213 +2,252 @@
   "flashCards": [
     {
       "id": 1,
-      "front": "Question 1",
-      "options": ["1", "2", "3", "4"],
-      "back": "1",
-      "incorrect": ["2", "3", "4"]
+      "front": "What is the capital of France?",
+      "options": ["Paris", "Berlin", "London", "Madrid"],
+      "back": "Paris",
+      "incorrect": ["Berlin", "London", "Madrid"]
     },
     {
       "id": 2,
-      "front": "Question 2",
-      "options": ["1", "2", "3", "4"],
-      "back": "2",
-      "incorrect": ["1", "3", "4"]
+      "front": "Which planet is known as the Red Planet?",
+      "options": ["Mars", "Venus", "Jupiter", "Saturn"],
+      "back": "Mars",
+      "incorrect": ["Venus", "Jupiter", "Saturn"]
     },
     {
       "id": 3,
-      "front": "Question 3",
-      "options": ["1", "2", "3", "4"],
-      "back": "3",
-      "incorrect": ["1", "2", "4"]
+      "front": "In which year did Nirvana release their iconic album 'Nevermind'?",
+      "options": ["1991", "1993", "1995", "1990"],
+      "back": "1991",
+      "incorrect": ["1993", "1995", "1990"]
     },
     {
       "id": 4,
-      "front": "Question 4",
-      "options": ["1", "2", "3", "4"],
-      "back": "4",
-      "incorrect": ["1", "2", "3"]
+      "front": "Who is the lead guitarist of Pink Floyd?",
+      "options": [
+        "David Gilmour",
+        "Roger Waters",
+        "Syd Barrett",
+        "Richard Wright"
+      ],
+      "back": "David Gilmour",
+      "incorrect": ["Roger Waters", "Syd Barrett", "Richard Wright"]
     },
     {
       "id": 5,
-      "front": "Question 5",
-      "options": ["1", "2", "3", "4"],
-      "back": "1",
-      "incorrect": ["3", "4", "2"]
+      "front": "Which Arctic Monkeys album features the song 'Do I Wanna Know'?",
+      "options": [
+        "AM",
+        "Whatever People Say I Am, That's What I'm Not",
+        "Favourite Worst Nightmare",
+        "Humbug"
+      ],
+      "back": "AM",
+      "incorrect": [
+        "Whatever People Say I Am, That's What I'm Not",
+        "Favourite Worst Nightmare",
+        "Humbug"
+      ]
     },
     {
       "id": 6,
-      "front": "Question 6",
-      "options": ["1", "2", "3", "4"],
-      "back": "2",
-      "incorrect": ["1", "3", "4"]
+      "front": "What is the capital city of Japan?",
+      "options": ["Tokyo", "Beijing", "Seoul", "Bangkok"],
+      "back": "Tokyo",
+      "incorrect": ["Beijing", "Seoul", "Bangkok"]
     },
     {
       "id": 7,
-      "front": "Question 7",
-      "options": ["1", "2", "3", "4"],
-      "back": "3",
-      "incorrect": ["1", "2", "4"]
+      "front": "How many moons does the planet Mars have?",
+      "options": ["2", "1", "0", "3"],
+      "back": "2",
+      "incorrect": ["1", "0", "3"]
     },
     {
       "id": 8,
-      "front": "Question 8",
-      "options": ["1", "2", "3", "4"],
-      "back": "4",
-      "incorrect": ["1", "2", "3"]
+      "front": "Who wrote 'Romeo and Juliet'?",
+      "options": [
+        "William Shakespeare",
+        "Charles Dickens",
+        "Jane Austen",
+        "Homer"
+      ],
+      "back": "William Shakespeare",
+      "incorrect": ["Charles Dickens", "Jane Austen", "Homer"]
     },
     {
       "id": 9,
-      "front": "Question 9",
-      "options": ["1", "2", "3", "4"],
-      "back": "1",
-      "incorrect": ["2", "3", "4"]
+      "front": "Which planet is known as the 'Giant of the Solar System'?",
+      "options": ["Jupiter", "Saturn", "Uranus", "Neptune"],
+      "back": "Jupiter",
+      "incorrect": ["Saturn", "Uranus", "Neptune"]
     },
     {
       "id": 10,
-      "front": "Question 10",
-      "options": ["1", "2", "3", "4"],
-      "back": "2",
-      "incorrect": ["1", "3", "4"]
+      "front": "What is the capital city of Australia?",
+      "options": ["Canberra", "Sydney", "Melbourne", "Brisbane"],
+      "back": "Canberra",
+      "incorrect": ["Sydney", "Melbourne", "Brisbane"]
     },
     {
       "id": 11,
-      "front": "Question 11",
-      "options": ["1", "2", "3", "4"],
-      "back": "3",
-      "incorrect": ["1", "2", "4"]
+      "front": "In which year did The Beatles release their album 'Abbey Road'?",
+      "options": ["1969", "1967", "1971", "1965"],
+      "back": "1969",
+      "incorrect": ["1967", "1971", "1965"]
     },
     {
       "id": 12,
-      "front": "Question 12",
-      "options": ["1", "2", "3", "4"],
-      "back": "4",
-      "incorrect": ["1", "2", "3"]
+      "front": "Who is the lead singer of Queen?",
+      "options": [
+        "Freddie Mercury",
+        "Roger Taylor",
+        "Brian May",
+        "John Deacon"
+      ],
+      "back": "Freddie Mercury",
+      "incorrect": ["Roger Taylor", "Brian May", "John Deacon"]
     },
     {
       "id": 13,
-      "front": "Question 13",
-      "options": ["1", "2", "3", "4"],
-      "back": "1",
-      "incorrect": ["2", "3", "4"]
+      "front": "Which ocean is the largest on Earth?",
+      "options": [
+        "Pacific Ocean",
+        "Atlantic Ocean",
+        "Indian Ocean",
+        "Southern Ocean"
+      ],
+      "back": "Pacific Ocean",
+      "incorrect": ["Atlantic Ocean", "Indian Ocean", "Southern Ocean"]
     },
     {
       "id": 14,
-      "front": "Question 14",
-      "options": ["1", "2", "3", "4"],
-      "back": "2",
-      "incorrect": ["1", "3", "4"]
+      "front": "How many continents are there in the world?",
+      "options": ["7", "6", "5", "8"],
+      "back": "7",
+      "incorrect": ["6", "5", "8"]
     },
     {
       "id": 15,
-      "front": "Question 15",
-      "options": ["1", "2", "3", "4"],
-      "back": "3",
-      "incorrect": ["1", "2", "4"]
+      "front": "What is the capital city of Brazil?",
+      "options": ["Brasília", "Rio de Janeiro", "São Paulo", "Salvador"],
+      "back": "Brasília",
+      "incorrect": ["Rio de Janeiro", "São Paulo", "Salvador"]
     },
     {
       "id": 16,
-      "front": "Question 16",
-      "options": ["1", "2", "3", "4"],
-      "back": "4",
-      "incorrect": ["1", "2", "3"]
+      "front": "Which element has the chemical symbol 'O'?",
+      "options": ["Oxygen", "Gold", "Carbon", "Hydrogen"],
+      "back": "Oxygen",
+      "incorrect": ["Gold", "Carbon", "Hydrogen"]
     },
     {
       "id": 17,
-      "front": "Question 17",
-      "options": ["1", "2", "3", "4"],
-      "back": "1",
-      "incorrect": ["3", "4", "2"]
+      "front": "What is the largest mammal in the world?",
+      "options": ["Blue Whale", "Elephant", "Giraffe", "Hippopotamus"],
+      "back": "Blue Whale",
+      "incorrect": ["Elephant", "Giraffe", "Hippopotamus"]
     },
     {
       "id": 18,
-      "front": "Question 18",
-      "options": ["1", "2", "3", "4"],
-      "back": "2",
-      "incorrect": ["1", "3", "4"]
+      "front": "Who wrote the play 'Hamlet'?",
+      "options": [
+        "William Shakespeare",
+        "Charles Dickens",
+        "Jane Austen",
+        "Homer"
+      ],
+      "back": "William Shakespeare",
+      "incorrect": ["Charles Dickens", "Jane Austen", "Homer"]
     },
     {
       "id": 19,
-      "front": "Question 19",
-      "options": ["1", "2", "3", "4"],
-      "back": "3",
-      "incorrect": ["1", "2", "4"]
+      "front": "What is the largest desert in the world?",
+      "options": ["Antarctica", "Sahara", "Arctic", "Gobi"],
+      "back": "Antarctica",
+      "incorrect": ["Sahara", "Arctic", "Gobi"]
     },
     {
       "id": 20,
-      "front": "Question 20",
-      "options": ["1", "2", "3", "4"],
-      "back": "4",
-      "incorrect": ["1", "2", "3"]
+      "front": "In which year did the Apollo 11 mission land the first humans on the Moon?",
+      "options": ["1969", "1971", "1967", "1973"],
+      "back": "1969",
+      "incorrect": ["1971", "1967", "1973"]
     },
     {
       "id": 21,
-      "front": "Question 21",
-      "options": ["1", "2", "3", "4"],
-      "back": "1",
-      "incorrect": ["2", "3", "4"]
+      "front": "Which rock band is known for the song 'Stairway to Heaven'?",
+      "options": ["Led Zeppelin", "The Rolling Stones", "The Who", "The Doors"],
+      "back": "Led Zeppelin",
+      "incorrect": ["The Rolling Stones", "The Who", "The Doors"]
     },
     {
       "id": 22,
-      "front": "Question 22",
-      "options": ["1", "2", "3", "4"],
-      "back": "2",
-      "incorrect": ["1", "3", "4"]
+      "front": "What is the capital city of South Korea?",
+      "options": ["Seoul", "Tokyo", "Beijing", "Bangkok"],
+      "back": "Seoul",
+      "incorrect": ["Tokyo", "Beijing", "Bangkok"]
     },
     {
       "id": 23,
-      "front": "Question 23",
-      "options": ["1", "2", "3", "4"],
-      "back": "3",
-      "incorrect": ["1", "2", "4"]
+      "front": "Which gas makes up the majority of Earth's atmosphere?",
+      "options": ["Nitrogen", "Oxygen", "Carbon Dioxide", "Argon"],
+      "back": "Nitrogen",
+      "incorrect": ["Oxygen", "Carbon Dioxide", "Argon"]
     },
     {
       "id": 24,
-      "front": "Question 24",
-      "options": ["1", "2", "3", "4"],
-      "back": "4",
-      "incorrect": ["1", "2", "3"]
+      "front": "What is the smallest prime number?",
+      "options": ["2", "1", "3", "5"],
+      "back": "2",
+      "incorrect": ["1", "3", "5"]
     },
     {
       "id": 25,
-      "front": "Question 25",
-      "options": ["1", "2", "3", "4"],
-      "back": "1",
-      "incorrect": ["3", "4", "2"]
+      "front": "Which river is the longest in the world?",
+      "options": ["Nile", "Amazon", "Yangtze", "Mississippi"],
+      "back": "Nile",
+      "incorrect": ["Amazon", "Yangtze", "Mississippi"]
     },
     {
       "id": 26,
-      "front": "Question 26",
-      "options": ["1", "2", "3", "4"],
-      "back": "2",
-      "incorrect": ["1", "3", "4"]
+      "front": "Who is the author of 'To Kill a Mockingbird'?",
+      "options": [
+        "Harper Lee",
+        "J.K. Rowling",
+        "George Orwell",
+        "Ernest Hemingway"
+      ],
+      "back": "Harper Lee",
+      "incorrect": ["J.K. Rowling", "George Orwell", "Ernest Hemingway"]
     },
     {
       "id": 27,
-      "front": "Question 27",
-      "options": ["1", "2", "3", "4"],
-      "back": "3",
-      "incorrect": ["1", "2", "4"]
+      "front": "Which planet is known as the 'Morning Star'?",
+      "options": ["Venus", "Mars", "Mercury", "Jupiter"],
+      "back": "Venus",
+      "incorrect": ["Mars", "Mercury", "Jupiter"]
     },
     {
       "id": 28,
-      "front": "Question 28",
-      "options": ["1", "2", "3", "4"],
-      "back": "4",
-      "incorrect": ["1", "2", "3"]
+      "front": "What is the capital city of Canada?",
+      "options": ["Ottawa", "Toronto", "Vancouver", "Montreal"],
+      "back": "Ottawa",
+      "incorrect": ["Toronto", "Vancouver", "Montreal"]
     },
     {
       "id": 29,
-      "front": "Question 29",
-      "options": ["1", "2", "3", "4"],
-      "back": "1",
-      "incorrect": ["2", "3", "4"]
+      "front": "In which year did The Rolling Stones release the album 'Sticky Fingers'?",
+      "options": ["1971", "1969", "1973", "1975"],
+      "back": "1971",
+      "incorrect": ["1969", "1973", "1975"]
     },
     {
       "id": 30,
-      "front": "Question 30",
-      "options": ["1", "2", "3", "4"],
-      "back": "2",
-      "incorrect": ["1", "3", "4"]
+      "front": "What is the capital city of China?",
+      "options": ["Beijing", "Shanghai", "Hong Kong", "Tokyo"],
+      "back": "Beijing",
+      "incorrect": ["Shanghai", "Hong Kong", "Tokyo"]
     }
   ]
 }
