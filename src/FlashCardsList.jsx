@@ -4,9 +4,9 @@ import FlashCards from "./FlashCards";
 export default function FlashCardsList({ flashCards }) {
   return (
     <div className="card-container">
-      {flashCards.map((flashCard) => {
-        return <FlashCards flashCard={flashCard} key={flashCard.id} />;
-      })}
+      {flashCards.map((flashCard) => (
+        <FlashCards flashCard={flashCard} key={flashCard.id} />
+      ))}
     </div>
   );
 }

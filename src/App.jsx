@@ -15,12 +15,10 @@ function App() {
       .then((data) => {
         const updatedFlashCards = data.flashCards.map((question) => {
           const correctAnswer = question.back;
-          const options = [...question.incorrect, correctAnswer];
           return {
             id: question.id,
             front: question.front,
             back: question.back,
-            options: options.sort(() => Math.random() - 0.5),
           };
         });
         setFlashCards(updatedFlashCards);

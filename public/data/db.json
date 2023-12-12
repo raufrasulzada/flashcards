@@ -3,251 +3,212 @@
     {
       "id": 1,
       "front": "What is the capital of France?",
-      "options": ["Paris", "Berlin", "London", "Madrid"],
       "back": "Paris",
-      "incorrect": ["Berlin", "London", "Madrid"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 2,
       "front": "Which planet is known as the Red Planet?",
-      "options": ["Mars", "Venus", "Jupiter", "Saturn"],
       "back": "Mars",
-      "incorrect": ["Venus", "Jupiter", "Saturn"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 3,
       "front": "In which year did Nirvana release their iconic album 'Nevermind'?",
-      "options": ["1991", "1993", "1995", "1990"],
       "back": "1991",
-      "incorrect": ["1993", "1995", "1990"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 4,
       "front": "Who is the lead guitarist of Pink Floyd?",
-      "options": [
-        "David Gilmour",
-        "Roger Waters",
-        "Syd Barrett",
-        "Richard Wright"
-      ],
       "back": "David Gilmour",
-      "incorrect": ["Roger Waters", "Syd Barrett", "Richard Wright"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 5,
-      "front": "Which Arctic Monkeys album features the song 'Do I Wanna Know'?",
-      "options": [
-        "AM",
-        "Whatever People Say I Am, That's What I'm Not",
-        "Favourite Worst Nightmare",
-        "Humbug"
-      ],
-      "back": "AM",
-      "incorrect": [
-        "Whatever People Say I Am, That's What I'm Not",
-        "Favourite Worst Nightmare",
-        "Humbug"
-      ]
+      "front": "Which Arctic Monkeys album features the song 'Dance Little Liar'?",
+      "back": "Humbug",
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 6,
       "front": "What is the capital city of Japan?",
-      "options": ["Tokyo", "Beijing", "Seoul", "Bangkok"],
       "back": "Tokyo",
-      "incorrect": ["Beijing", "Seoul", "Bangkok"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 7,
       "front": "How many moons does the planet Mars have?",
-      "options": ["2", "1", "0", "3"],
       "back": "2",
-      "incorrect": ["1", "0", "3"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 8,
-      "front": "Who wrote 'Romeo and Juliet'?",
-      "options": [
-        "William Shakespeare",
-        "Charles Dickens",
-        "Jane Austen",
-        "Homer"
-      ],
-      "back": "William Shakespeare",
-      "incorrect": ["Charles Dickens", "Jane Austen", "Homer"]
+      "front": "Who wrote 'The Myth of Sisyphus'?",
+      "back": "Albert Camus",
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 9,
       "front": "Which planet is known as the 'Giant of the Solar System'?",
-      "options": ["Jupiter", "Saturn", "Uranus", "Neptune"],
       "back": "Jupiter",
-      "incorrect": ["Saturn", "Uranus", "Neptune"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 10,
       "front": "What is the capital city of Australia?",
-      "options": ["Canberra", "Sydney", "Melbourne", "Brisbane"],
       "back": "Canberra",
-      "incorrect": ["Sydney", "Melbourne", "Brisbane"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 11,
       "front": "In which year did The Beatles release their album 'Abbey Road'?",
-      "options": ["1969", "1967", "1971", "1965"],
       "back": "1969",
-      "incorrect": ["1967", "1971", "1965"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 12,
       "front": "Who is the lead singer of Queen?",
-      "options": [
-        "Freddie Mercury",
-        "Roger Taylor",
-        "Brian May",
-        "John Deacon"
-      ],
       "back": "Freddie Mercury",
-      "incorrect": ["Roger Taylor", "Brian May", "John Deacon"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 13,
       "front": "Which ocean is the largest on Earth?",
-      "options": [
-        "Pacific Ocean",
-        "Atlantic Ocean",
-        "Indian Ocean",
-        "Southern Ocean"
-      ],
       "back": "Pacific Ocean",
-      "incorrect": ["Atlantic Ocean", "Indian Ocean", "Southern Ocean"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 14,
       "front": "How many continents are there in the world?",
-      "options": ["7", "6", "5", "8"],
       "back": "7",
-      "incorrect": ["6", "5", "8"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 15,
       "front": "What is the capital city of Brazil?",
-      "options": ["Brasília", "Rio de Janeiro", "São Paulo", "Salvador"],
       "back": "Brasília",
-      "incorrect": ["Rio de Janeiro", "São Paulo", "Salvador"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 16,
       "front": "Which element has the chemical symbol 'O'?",
-      "options": ["Oxygen", "Gold", "Carbon", "Hydrogen"],
       "back": "Oxygen",
-      "incorrect": ["Gold", "Carbon", "Hydrogen"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 17,
       "front": "What is the largest mammal in the world?",
-      "options": ["Blue Whale", "Elephant", "Giraffe", "Hippopotamus"],
       "back": "Blue Whale",
-      "incorrect": ["Elephant", "Giraffe", "Hippopotamus"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 18,
       "front": "Who wrote the play 'Hamlet'?",
-      "options": [
-        "William Shakespeare",
-        "Charles Dickens",
-        "Jane Austen",
-        "Homer"
-      ],
       "back": "William Shakespeare",
-      "incorrect": ["Charles Dickens", "Jane Austen", "Homer"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 19,
       "front": "What is the largest desert in the world?",
-      "options": ["Antarctica", "Sahara", "Arctic", "Gobi"],
-      "back": "Antarctica",
-      "incorrect": ["Sahara", "Arctic", "Gobi"]
+      "back": "Antarctic Polar Desert",
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 20,
       "front": "In which year did the Apollo 11 mission land the first humans on the Moon?",
-      "options": ["1969", "1971", "1967", "1973"],
       "back": "1969",
-      "incorrect": ["1971", "1967", "1973"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 21,
       "front": "Which rock band is known for the song 'Stairway to Heaven'?",
-      "options": ["Led Zeppelin", "The Rolling Stones", "The Who", "The Doors"],
       "back": "Led Zeppelin",
-      "incorrect": ["The Rolling Stones", "The Who", "The Doors"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 22,
       "front": "What is the capital city of South Korea?",
-      "options": ["Seoul", "Tokyo", "Beijing", "Bangkok"],
       "back": "Seoul",
-      "incorrect": ["Tokyo", "Beijing", "Bangkok"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 23,
       "front": "Which gas makes up the majority of Earth's atmosphere?",
-      "options": ["Nitrogen", "Oxygen", "Carbon Dioxide", "Argon"],
       "back": "Nitrogen",
-      "incorrect": ["Oxygen", "Carbon Dioxide", "Argon"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 24,
       "front": "What is the smallest prime number?",
-      "options": ["2", "1", "3", "5"],
       "back": "2",
-      "incorrect": ["1", "3", "5"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 25,
       "front": "Which river is the longest in the world?",
-      "options": ["Nile", "Amazon", "Yangtze", "Mississippi"],
       "back": "Nile",
-      "incorrect": ["Amazon", "Yangtze", "Mississippi"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 26,
       "front": "Who is the author of 'To Kill a Mockingbird'?",
-      "options": [
-        "Harper Lee",
-        "J.K. Rowling",
-        "George Orwell",
-        "Ernest Hemingway"
-      ],
       "back": "Harper Lee",
-      "incorrect": ["J.K. Rowling", "George Orwell", "Ernest Hemingway"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 27,
       "front": "Which planet is known as the 'Morning Star'?",
-      "options": ["Venus", "Mars", "Mercury", "Jupiter"],
       "back": "Venus",
-      "incorrect": ["Mars", "Mercury", "Jupiter"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 28,
       "front": "What is the capital city of Canada?",
-      "options": ["Ottawa", "Toronto", "Vancouver", "Montreal"],
       "back": "Ottawa",
-      "incorrect": ["Toronto", "Vancouver", "Montreal"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 29,
       "front": "In which year did The Rolling Stones release the album 'Sticky Fingers'?",
-      "options": ["1971", "1969", "1973", "1975"],
       "back": "1971",
-      "incorrect": ["1969", "1973", "1975"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     },
     {
       "id": 30,
       "front": "What is the capital city of China?",
-      "options": ["Beijing", "Shanghai", "Hong Kong", "Tokyo"],
       "back": "Beijing",
-      "incorrect": ["Shanghai", "Hong Kong", "Tokyo"]
+      "lastModified": "2023-12-13",
+      "status": "Want to Learn"
     }
   ]
 }
