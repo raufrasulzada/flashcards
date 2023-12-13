@@ -28,10 +28,15 @@ export default function FlashCards({ flashCard, onDelete, onEdit }) {
     setHeight("initial");
   };
 
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    onDelete(flashCard.id);
+  };
+
   function setMaxHeight() {
     const heightFront = frontEl.current.getBoundingClientRect().height;
     const heightBack = backEl.current.getBoundingClientRect().height;
-    setHeight(Math.max(heightFront, heightBack, 100));
+    setHeight(Math.max(heightFront, heightBack, 125));
   }
 
   useEffect(setMaxHeight, [flashCard.front, flashCard.back]);
@@ -68,14 +73,7 @@ export default function FlashCards({ flashCard, onDelete, onEdit }) {
       </div>
       {height === "auto" && (
         <div className="card-actions">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete(flashCard.id);
-            }}
-          >
-            Delete
-          </button>
+          <button onClick={handleDeleteClick}>Delete</button>
           <button
             onClick={(e) => {
               e.stopPropagation();

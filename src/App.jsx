@@ -9,12 +9,16 @@ import "./style/App.css";
 function App() {
   const [flashCards, setFlashCards] = useState([]);
 
+  const handleDelete = (id) => {
+    const updatedFlashCards = flashCards.filter((card) => card.id !== id);
+    setFlashCards(updatedFlashCards);
+  };
+
   useEffect(() => {
     fetch(`${process.env.PUBLIC_URL}/data/db.json`)
       .then((response) => response.json())
       .then((data) => {
         const updatedFlashCards = data.flashCards.map((question) => {
-          const correctAnswer = question.back;
           return {
             id: question.id,
             front: question.front,
@@ -52,7 +56,10 @@ function App() {
             path="/flashcardspage"
             element={
               <div className="container">
-                <FlashCardsList flashCards={flashCards} />
+                <FlashCardsList
+                  flashCards={flashCards}
+                  onDelete={handleDelete}
+                />
               </div>
             }
           />

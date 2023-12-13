@@ -1,7 +1,7 @@
 body {
   margin: 0;
   height: 100%;
-  background: linear-gradient(225deg, #ff0000, #00ffff);
+  background: linear-gradient(225deg, #dd55b4, #5db5e7);
   background-size: 300% 300%;
   animation: background 10s linear infinite;
 }
@@ -125,7 +125,7 @@ nav {
   border: 1px solid rgb(20, 20, 20);
   padding: 15px 40px;
   border-radius: 20px;
-  background: linear-gradient(225deg, #910404, #028b8b);
+  background: linear-gradient(225deg, #991e74, #22678f);
 }
 
 nav ul li:hover {
