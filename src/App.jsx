@@ -14,6 +14,19 @@ function App() {
     setFlashCards(updatedFlashCards);
   };
 
+  const handleEdit = (id, editedFront, editedBack) => {
+    const updatedFlashCards = flashCards.map((card) =>
+      card.id === id
+        ? {
+            ...card,
+            front: editedFront,
+            back: editedBack,
+          }
+        : card
+    );
+    setFlashCards(updatedFlashCards);
+  };
+
   useEffect(() => {
     fetch(`${process.env.PUBLIC_URL}/data/db.json`)
       .then((response) => response.json())
@@ -59,6 +72,7 @@ function App() {
                 <FlashCardsList
                   flashCards={flashCards}
                   onDelete={handleDelete}
+                  onEdit={handleEdit}
                 />
               </div>
             }
@@ -68,4 +82,5 @@ function App() {
     </Router>
   );
 }
+
 export default App;
