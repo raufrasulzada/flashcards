@@ -1,43 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Home from "./Home";
-import FlashCards from "./FlashCards";
 import FlashCardsList from "./FlashCardsList";
+import CreateCard from "./CreateCard";
 
 import "./style/App.css";
 
 function App() {
   const [flashCards, setFlashCards] = useState([]);
+  const [editingCardId, setEditingCardId] = useState(null);
+  const [createCardModalOpen, setCreateCardModalOpen] = useState(false);
+  const [isAddingCard, setIsAddingCard] = useState(false);
 
   const handleDelete = (id) => {
     const updatedFlashCards = flashCards.filter((card) => card.id !== id);
     setFlashCards(updatedFlashCards);
   };
 
-  const handleEdit = (id, editedFront, editedBack) => {
-    const updatedFlashCards = flashCards.map((card) =>
-      card.id === id
-        ? {
-            ...card,
-            front: editedFront,
-            back: editedBack,
-          }
-        : card
-    );
-    setFlashCards(updatedFlashCards);
+  const handleAddCard = () => {
+    if (!editingCardId) {
+      const newCard = {
+        id: flashCards.length + 1,
+        front: "",
+        back: "",
+      };
+      setFlashCards([...flashCards, newCard]);
+      setEditingCardId(newCard.id);
+      setCreateCardModalOpen(true);
+    }
+  };
+
+  const handleAddCardComplete = () => {
+    setIsAddingCard(false);
   };
 
   useEffect(() => {
     fetch(`${process.env.PUBLIC_URL}/data/db.json`)
       .then((response) => response.json())
       .then((data) => {
-        const updatedFlashCards = data.flashCards.map((question) => {
-          return {
-            id: question.id,
-            front: question.front,
-            back: question.back,
-          };
-        });
+        const updatedFlashCards = data.flashCards.map((question) => ({
+          id: question.id,
+          front: question.front,
+          back: question.back,
+        }));
         setFlashCards(updatedFlashCards);
       })
       .catch((error) => {
@@ -61,10 +66,23 @@ function App() {
               </Link>
             </li>
           </ul>
+          <Routes>
+            <Route
+              path="/flashcardspage"
+              element={
+                <button
+                  className="btn add-card-button"
+                  onClick={handleAddCard}
+                  disabled={isAddingCard}
+                >
+                  Add Card
+                </button>
+              }
+            />
+          </Routes>
         </nav>
 
         <Routes>
-          <Route path="/flashcards" element={<Home />} />
           <Route
             path="/flashcardspage"
             element={
@@ -72,11 +90,36 @@ function App() {
                 <FlashCardsList
                   flashCards={flashCards}
                   onDelete={handleDelete}
-                  onEdit={handleEdit}
+                  setEditingCardId={setEditingCardId}
+                  setCreateCardModalOpen={setCreateCardModalOpen}
+                  onAddCardComplete={handleAddCardComplete}
                 />
+                {!isAddingCard && (
+                  <CreateCard
+                    onClose={() => {
+                      setCreateCardModalOpen(false);
+                      handleAddCardComplete();
+                    }}
+                    onAddCard={(newCardId, newFront, newBack) => {
+                      console.log("Adding card:", newCardId, newFront, newBack);
+                      setFlashCards((prevCards) => [
+                        ...prevCards,
+                        { id: newCardId, front: newFront, back: newBack },
+                      ]);
+                      setCreateCardModalOpen(false);
+                      handleAddCardComplete();
+                    }}
+                    flashCards={flashCards}
+                    setFlashCards={setFlashCards}
+                    editingCardId={editingCardId}
+                    setEditingCardId={setEditingCardId}
+                    createCardModalOpen={createCardModalOpen}
+                  />
+                )}
               </div>
             }
           />
+          <Route path="/flashcards" element={<Home />} />
         </Routes>
       </div>
     </Router>

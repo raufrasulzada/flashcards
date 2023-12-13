@@ -59,19 +59,10 @@ export default function FlashCards({ flashCard, onDelete, onEdit }) {
     }
   };
 
-  const setMaxHeight = () => {
-    if (frontEl.current && backEl.current) {
-      const heightFront = frontEl.current.getBoundingClientRect().height;
-      const heightBack = backEl.current.getBoundingClientRect().height;
-      setHeight(Math.max(heightFront, heightBack, 125));
-    }
-  };
-
-  useEffect(setMaxHeight, [editedFront, editedBack]);
   useEffect(() => {
-    window.addEventListener("resize", setMaxHeight);
-    return () => window.removeEventListener("resize", setMaxHeight);
-  }, []);
+    setEditedFront(flashCard.front);
+    setEditedBack(flashCard.back);
+  }, [flashCard]);
 
   return (
     <div
