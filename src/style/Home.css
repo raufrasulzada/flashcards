@@ -9,7 +9,8 @@
   border-radius: 10px;
   color: #ecf0f1;
   margin: auto;
-  border: 2px solid rgb(20, 20, 20);
+  border: 2px solid rgb(255, 255, 255);
+  backdrop-filter: blur(8px);
 }
 
 .project-list {

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Home from "./Home";
 import FlashCardsList from "./FlashCardsList";
 import CreateCard from "./CreateCard";
+import Contact from "./Contact";
 
 import "./style/App.css";
 
@@ -65,6 +66,11 @@ function App() {
                 Flash Cards
               </Link>
             </li>
+            <li>
+              <Link className="btn" to="/contact">
+                Contact
+              </Link>
+            </li>
           </ul>
           <Routes>
             <Route
@@ -120,6 +126,7 @@ function App() {
             }
           />
           <Route path="/flashcards" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
     </Router>

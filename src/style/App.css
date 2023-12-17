@@ -1,9 +1,9 @@
 body {
   margin: 0;
   height: 100%;
-  background: linear-gradient(225deg, #dd55b4, #5db5e7);
-  background-size: 300% 300%;
-  animation: background 10s linear infinite;
+  background-image: url("https://images8.alphacoders.com/132/1325725.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .home-container {
@@ -38,6 +38,7 @@ body {
   top: 120px;
   left: 65%;
   transform: translateX(-700%) scale(1.1);
+  font-weight: 600;
   padding: 10px;
   border: 1px solid rgb(20, 20, 20);
   border-radius: 20px;
@@ -147,7 +148,7 @@ nav {
   border: 1px solid rgb(20, 20, 20);
   padding: 15px 40px;
   border-radius: 20px;
-  background: linear-gradient(225deg, #991e74, #22678f);
+  background: #2980b9;
 }
 
 .card.edit-mode {
@@ -221,16 +222,4 @@ nav ul li a {
   text-decoration: none;
   color: white;
   font-weight: bold;
-}
-
-@keyframes background {
-  0% {
-    background-position: 50% 0%;
-  }
-  50% {
-    background-position: 50% 100%;
-  }
-  100% {
-    background-position: 50% 0%;
-  }
 }

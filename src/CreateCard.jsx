@@ -64,7 +64,7 @@ export default function CreateCard({
         <span className="close" onClick={handleClose}>
           &times;
         </span>
-        <h2>{editingCardId ? "Edit Card" : "Add New Card"}</h2>
+        <h2>{editingCardId ? "Add Card" : "Add New Card"}</h2>
         <label>
           Front (Question):
           <input

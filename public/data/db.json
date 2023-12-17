@@ -1,4 +1,12 @@
 {
+  "messages": [
+    {
+      "subject": "First mail attempt!",
+      "email": "rrasulzada15558@ada.edu.az",
+      "content": "Hi, this is the first attempt for contact page!",
+      "id": 1
+    }
+  ],
   "flashCards": [
     {
       "id": 1,
