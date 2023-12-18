@@ -33,13 +33,16 @@ export default function CreateCard({
       console.log("Card edited:", { id: editingCardId, front, back });
       setEditingCardId(null);
     } else {
+      const currentDate = new Date().toISOString().split("T")[0];
       const newCard = {
         id: flashCards.length + 1,
         front,
         back,
+        lastModified: currentDate,
+        status: "Want to Learn",
       };
       setFlashCards([...flashCards, newCard]);
-      onAddCard(newCard.id, newCard.front, newCard.back);
+      onAddCard(newCard);
       console.log("Card added:", newCard);
     }
     setFront("");

@@ -39,10 +39,12 @@ function App() {
     fetch(`${process.env.PUBLIC_URL}/data/db.json`)
       .then((response) => response.json())
       .then((data) => {
-        const updatedFlashCards = data.flashCards.map((question) => ({
-          id: question.id,
-          front: question.front,
-          back: question.back,
+        const updatedFlashCards = data.flashCards.map((card) => ({
+          id: card.id,
+          front: card.front,
+          back: card.back,
+          status: card.status || "Want to Learn",
+          lastModified: card.lastModified || "unknown",
         }));
         setFlashCards(updatedFlashCards);
       })

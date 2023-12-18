@@ -1,5 +1,3 @@
-// Update FlashCardsList.jsx
-
 import React, { useState } from "react";
 import FlashCards from "./FlashCards";
 import CreateCard from "./CreateCard";
@@ -30,12 +28,14 @@ function FlashCardsList({
         card.front.toLowerCase().includes(searchTerm.toLowerCase()) ||
         card.back.toLowerCase().includes(searchTerm.toLowerCase())
     )
-    .filter((card) =>
-      filterStatus === "All"
-        ? true
-        : card.status &&
-          card.status.toLowerCase() === filterStatus.toLowerCase()
-    )
+    .filter((card) => {
+      const cardStatus = card.status ? card.status : "unknown";
+      console.log("Card ID:", card.id, "Status:", cardStatus);
+      return (
+        filterStatus === "All" ||
+        (cardStatus && cardStatus.toLowerCase() === filterStatus.toLowerCase())
+      );
+    })
     .sort((a, b) => {
       if (sortAttribute === "id") {
         return a.id - b.id;
