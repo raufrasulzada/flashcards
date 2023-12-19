@@ -32,6 +32,8 @@ function App() {
 
   const handleAddCard = async (event) => {
     event.preventDefault();
+    event.stopPropagation();
+    setIsAddingCard(true);
 
     const maxId = flashCards.reduce(
       (max, card) => (card.id > max ? card.id : max),
@@ -119,6 +121,7 @@ function App() {
               path="/flashcardspage"
               element={
                 <button
+                  type="button"
                   className="btn add-card-button"
                   onClick={handleAddCard}
                   disabled={isAddingCard}

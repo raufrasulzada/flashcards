@@ -9,6 +9,7 @@ export default function CreateCard({
   editingCardId,
   setEditingCardId,
   createCardModalOpen,
+  setCreateCardModalOpen,
 }) {
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
@@ -23,7 +24,9 @@ export default function CreateCard({
     }
   }, [editingCardId, flashCards]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    setCreateCardModalOpen(false);
+
     if (editingCardId) {
       setFlashCards((prevCards) =>
         prevCards.map((card) =>
@@ -41,13 +44,34 @@ export default function CreateCard({
         lastModified: currentDate,
         status: "Want to Learn",
       };
-      setFlashCards([...flashCards, newCard]);
-      onAddCard(newCard);
-      console.log("Card added:", newCard);
+
+      try {
+        const response = await fetch("http://localhost:3000/flashCards", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newCard),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Card added successfully:", data);
+
+          setFlashCards((prevCards) => [...prevCards, data]);
+
+          setEditingCardId(data.id);
+          onAddCard(data);
+        } else {
+          console.error("Failed to add card to server");
+        }
+      } catch (error) {
+        console.error("Error adding card:", error);
+      }
     }
+
     setFront("");
     setBack("");
-    onClose();
   };
 
   const handleClose = () => {
@@ -63,31 +87,33 @@ export default function CreateCard({
 
   return (
     <div className={`modal ${createCardModalOpen ? "open" : ""}`}>
-      <div className="modal-content">
-        <span className="close" onClick={handleClose}>
-          &times;
-        </span>
-        <h2>{editingCardId ? "Add Card" : "Add New Card"}</h2>
-        <label>
-          Front (Question):
-          <input
-            type="text"
-            value={front}
-            onChange={(e) => setFront(e.target.value)}
-          />
-        </label>
-        <label>
-          Back (Answer):
-          <input
-            type="text"
-            value={back}
-            onChange={(e) => setBack(e.target.value)}
-          />
-        </label>
-        <button onClick={handleSave}>
-          {editingCardId ? "Save Changes" : "Add Card"}
-        </button>
-      </div>
+      <form>
+        <div className="modal-content">
+          <span className="close" onClick={handleClose}>
+            &times;
+          </span>
+          <h2>{editingCardId ? "Edit Card" : "Add New Card"}</h2>
+          <label>
+            Front (Question):
+            <input
+              type="text"
+              value={front}
+              onChange={(e) => setFront(e.target.value)}
+            />
+          </label>
+          <label>
+            Back (Answer):
+            <input
+              type="text"
+              value={back}
+              onChange={(e) => setBack(e.target.value)}
+            />
+          </label>
+          <button type="button" onClick={handleSave}>
+            {editingCardId ? "Save Changes" : "Add Card"}
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
