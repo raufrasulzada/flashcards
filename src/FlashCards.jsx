@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const handleUpdate = (id, front, back, setFlashCards) => {
-  const currentDate = new Date().toISOString().split("T")[0];
+const currentDate = new Date().toISOString().split("T")[0];
 
+const handleUpdate = (id, front, back, setFlashCards) => {
   fetch(`http://localhost:3000/flashCards/${id}`, {
     method: "PATCH",
     headers: {
@@ -45,12 +45,6 @@ export default function FlashCards({
   const [editMode, setEditMode] = useState(false);
   const [editedFront, setEditedFront] = useState(flashCard.front);
   const [editedBack, setEditedBack] = useState(flashCard.back);
-  const [markedAsLearned, setMarkedAsLearned] = useState(
-    flashCard.status === "Learned"
-  );
-  const [buttonText, setButtonText] = useState(
-    markedAsLearned ? "Mark as Learned" : "Mark as Noted"
-  );
 
   const frontEl = useRef();
   const backEl = useRef();
@@ -85,25 +79,39 @@ export default function FlashCards({
     setTurn(!turn);
     onEdit(flashCard.id, editedFront, editedBack);
     if (onUpdate) {
-      onUpdate(
-        flashCard.id,
-        editedFront,
-        editedBack,
-        flashCards,
-        setFlashCards
-      );
+      onUpdate(editedFront, editedBack, flashCards, setFlashCards);
     }
   };
 
   const handleMarkAsNoted = (e) => {
     e.stopPropagation();
-    if (!markedAsLearned && status === "Want to Learn") {
-      setStatus("Noted");
-      setButtonText("Mark as Learned");
-      setMarkedAsLearned(true);
-    } else if (status === "Noted") {
-      setStatus("Learned");
-    }
+    const newStatus = status === "Want to Learn" ? "Noted" : "Learned";
+    const currentDate = new Date().toISOString().split("T")[0];
+    fetch(`http://localhost:3000/flashCards/${flashCard.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: newStatus, lastModified: currentDate }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.error("Failed to update status on server");
+          throw new Error("Failed to update status on server");
+        }
+        return response.json();
+      })
+      .then((updatedCard) => {
+        setFlashCards((prevCards) =>
+          prevCards.map((card) =>
+            card.id === updatedCard.id ? updatedCard : card
+          )
+        );
+        setStatus(newStatus);
+      })
+      .catch((error) => {
+        console.error("Error updating status:", error);
+      });
   };
 
   useEffect(() => {
@@ -145,9 +153,9 @@ export default function FlashCards({
             <div className={`answer ${turn ? "flipped" : ""}`}>
               {editedBack}
             </div>
-            {turn && (
+            {turn && status !== "Learned" && (
               <button className="noted-button" onClick={handleMarkAsNoted}>
-                {buttonText}
+                Update Status
               </button>
             )}
           </div>
