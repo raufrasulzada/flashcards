@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FlashCards from "./FlashCards";
 import CreateCard from "./CreateCard";
+import { handleUpdate } from "./FlashCards";
 
 function FlashCardsList({
   flashCards,
@@ -23,14 +24,17 @@ function FlashCardsList({
   };
 
   const filteredCards = flashCards
-    .filter(
-      (card) =>
-        card.front.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        card.back.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    .filter((card) => {
+      const frontText = String(card.front);
+      const backText = String(card.back);
+
+      return (
+        frontText.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        backText.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    })
     .filter((card) => {
       const cardStatus = card.status ? card.status : "unknown";
-      console.log("Card ID:", card.id, "Status:", cardStatus);
       return (
         filterStatus === "All" ||
         (cardStatus && cardStatus.toLowerCase() === filterStatus.toLowerCase())
@@ -80,9 +84,10 @@ function FlashCardsList({
           key={flashCard.id}
           flashCard={flashCard}
           onDelete={onDelete}
-          setEditingCardId={setEditingCardId}
-          setCreateCardModalOpen={setCreateCardModalOpen}
-          onEdit={(id, front, back) => handleEdit(id, front, back)}
+          onEdit={handleEdit}
+          onUpdate={(front, back) =>
+            handleUpdate(flashCard.id, front, back, setFlashCards)
+          }
         />
       ))}
       <CreateCard

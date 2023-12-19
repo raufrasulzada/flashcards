@@ -16,18 +16,58 @@ function App() {
   const handleDelete = (id) => {
     const updatedFlashCards = flashCards.filter((card) => card.id !== id);
     setFlashCards(updatedFlashCards);
+
+    fetch(`http://localhost:3000/flashCards/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.error("Failed to delete card from server");
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting card:", error);
+      });
   };
 
-  const handleAddCard = () => {
-    if (!editingCardId) {
-      const newCard = {
-        id: flashCards.length + 1,
-        front: "",
-        back: "",
-      };
-      setFlashCards([...flashCards, newCard]);
-      setEditingCardId(newCard.id);
-      setCreateCardModalOpen(true);
+  const handleAddCard = async (event) => {
+    event.preventDefault();
+
+    const maxId = flashCards.reduce(
+      (max, card) => (card.id > max ? card.id : max),
+      0
+    );
+    const newCard = {
+      id: maxId + 1,
+      front: "",
+      back: "",
+      lastModified: "",
+      status: "Want to Learn",
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/flashCards", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newCard),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Card added successfully:", data);
+
+        setFlashCards((prevCards) => [...prevCards, data]);
+
+        setEditingCardId(data.id);
+        setCreateCardModalOpen(true);
+        handleAddCardComplete();
+      } else {
+        console.error("Failed to add card to server");
+      }
+    } catch (error) {
+      console.error("Error adding card:", error);
     }
   };
 

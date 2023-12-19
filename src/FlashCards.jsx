@@ -1,6 +1,44 @@
 import React, { useState, useEffect, useRef } from "react";
 
-export default function FlashCards({ flashCard, onDelete, onEdit }) {
+const handleUpdate = (id, front, back, setFlashCards) => {
+  const currentDate = new Date().toISOString().split("T")[0];
+
+  fetch(`http://localhost:3000/flashCards/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ front, back, lastModified: currentDate }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        console.error("Failed to update card on server");
+        throw new Error("Failed to update card on server");
+      }
+      return response.json();
+    })
+    .then((updatedCard) => {
+      setFlashCards((prevCards) =>
+        prevCards.map((card) =>
+          card.id === updatedCard.id ? updatedCard : card
+        )
+      );
+    })
+    .catch((error) => {
+      console.error("Error updating card:", error);
+    });
+};
+
+export { handleUpdate };
+
+export default function FlashCards({
+  flashCard,
+  onDelete,
+  onEdit,
+  onUpdate,
+  flashCards,
+  setFlashCards,
+}) {
   const [turn, setTurn] = useState(false);
   const [height, setHeight] = useState("initial");
   const [status, setStatus] = useState(flashCard.status || "Want to Learn");
@@ -46,6 +84,15 @@ export default function FlashCards({ flashCard, onDelete, onEdit }) {
     setEditMode(false);
     setTurn(!turn);
     onEdit(flashCard.id, editedFront, editedBack);
+    if (onUpdate) {
+      onUpdate(
+        flashCard.id,
+        editedFront,
+        editedBack,
+        flashCards,
+        setFlashCards
+      );
+    }
   };
 
   const handleMarkAsNoted = (e) => {
