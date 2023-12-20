@@ -24,7 +24,8 @@ export default function CreateCard({
     }
   }, [editingCardId, flashCards]);
 
-  const handleSave = async () => {
+  const handleSave = async (event) => {
+    event.preventDefault();
     setCreateCardModalOpen(false);
 
     if (editingCardId) {
@@ -109,7 +110,7 @@ export default function CreateCard({
               onChange={(e) => setBack(e.target.value)}
             />
           </label>
-          <button type="button" onClick={handleSave}>
+          <button type="submit" onClick={handleSave}>
             {editingCardId ? "Save Changes" : "Add Card"}
           </button>
         </div>

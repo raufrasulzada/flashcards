@@ -34,6 +34,7 @@ function App() {
     event.preventDefault();
     event.stopPropagation();
     setIsAddingCard(true);
+    const currentDate = new Date().toISOString().split("T")[0];
 
     const maxId = flashCards.reduce(
       (max, card) => (card.id > max ? card.id : max),
@@ -43,7 +44,7 @@ function App() {
       id: maxId + 1,
       front: "",
       back: "",
-      lastModified: "",
+      lastModified: currentDate,
       status: "Want to Learn",
     };
 
@@ -121,7 +122,7 @@ function App() {
               path="/flashcardspage"
               element={
                 <button
-                  type="button"
+                  type="submit"
                   className="btn add-card-button"
                   onClick={handleAddCard}
                   disabled={isAddingCard}

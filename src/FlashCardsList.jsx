@@ -19,11 +19,10 @@ function FlashCardsList({
   };
 
   const handleAddCard = (newCard) => {
-    console.log("Adding card:", newCard);
     setFlashCards((prevFlashCards) => [...prevFlashCards, newCard]);
   };
 
-  const filteredCards = flashCards
+  const sortedCards = flashCards
     .filter((card) => {
       const frontText = String(card.front);
       const backText = String(card.back);
@@ -47,12 +46,11 @@ function FlashCardsList({
         return a.front.localeCompare(b.front);
       } else if (sortAttribute === "back") {
         return a.back.localeCompare(b.back);
+      } else if (sortAttribute === "lastModified") {
+        return new Date(b.lastModified) - new Date(a.lastModified);
       }
       return 0;
     });
-
-  console.log("Filter Status:", filterStatus);
-  console.log("Filtered Cards:", filteredCards);
 
   return (
     <div className="card-container">
@@ -78,8 +76,9 @@ function FlashCardsList({
         <option value="id">ID</option>
         <option value="front">Front</option>
         <option value="back">Back</option>
+        <option value="lastModified">Last Modified</option>
       </select>
-      {filteredCards.map((flashCard) => (
+      {sortedCards.map((flashCard) => (
         <FlashCards
           key={flashCard.id}
           flashCard={flashCard}
@@ -93,7 +92,6 @@ function FlashCardsList({
       <CreateCard
         onClose={() => setCreateCardModalOpen(false)}
         onAddCard={(newCard) => {
-          console.log("Adding card:", newCard);
           handleAddCard(newCard);
           setCreateCardModalOpen(false);
         }}
