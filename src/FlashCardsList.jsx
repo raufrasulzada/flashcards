@@ -106,7 +106,10 @@ function FlashCardsList({ onDelete, setFlashCards: updateFlashCards }) {
 
       {isAddCardFormVisible && (
         <div className="add-card-form-container">
-          {isAddCardFormVisible && <AddCardForm onAddCard={handleAddCard} />}
+          <AddCardForm
+            onAddCard={handleAddCard}
+            onCancel={() => setIsAddCardFormVisible(false)}
+          />
         </div>
       )}
 
