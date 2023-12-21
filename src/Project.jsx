@@ -1,20 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import "./style/Project.css";
 
 function Project({ title, description, link }) {
-  const [isHovered, setIsHovered] = useState(false);
-
   const handleClick = () => {
     window.open(link, "_blank");
   };
 
   return (
-    <li
-      className="cardProj"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={handleClick}
-    >
+    <li className="cardProj" onClick={handleClick}>
       <strong className="link">{title}:</strong> {description}
     </li>
   );

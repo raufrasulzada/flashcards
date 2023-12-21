@@ -1,25 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FlashCards from "./FlashCards";
-import CreateCard from "./CreateCard";
+import AddCardForm from "./AddCardForm";
 import { handleUpdate } from "./FlashCards";
 
-function FlashCardsList({
-  flashCards,
-  onDelete,
-  setEditingCardId,
-  setCreateCardModalOpen,
-  setFlashCards,
-}) {
+function FlashCardsList({ onDelete, setFlashCards: updateFlashCards }) {
+  const [flashCards, setLocalFlashCards] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
-  const [sortAttribute, setSortAttribute] = useState("id");
+  const [sortAttribute, setSortAttribute] = useState("lastModified");
+  const [isAddCardFormVisible, setIsAddCardFormVisible] = useState(false);
 
-  const handleEdit = (id, front, back) => {
-    console.log("Editing card:", id, front, back);
-  };
+  useEffect(() => {
+    fetch("http://localhost:3000/flashCards")
+      .then((response) => response.json())
+      .then((data) => setLocalFlashCards(data))
+      .catch((error) => console.error("Error fetching flash cards:", error));
+  }, []);
 
   const handleAddCard = (newCard) => {
-    setFlashCards((prevFlashCards) => [...prevFlashCards, newCard]);
+    fetch("http://localhost:3000/flashCards", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        front: newCard.front,
+        back: newCard.back,
+        status: "Want to Learn",
+        lastModified: new Date().toISOString().split("T")[0],
+      }),
+    })
+      .then((response) => response.json())
+      .then((addedCard) => {
+        setLocalFlashCards([...flashCards, addedCard]);
+        setIsAddCardFormVisible(false);
+      })
+      .catch((error) => {
+        console.error("Error adding card:", error);
+      });
   };
 
   const sortedCards = flashCards
@@ -51,54 +69,59 @@ function FlashCardsList({
       }
       return 0;
     });
-
   return (
-    <div className="card-container">
-      <input
-        type="text"
-        placeholder="Search cards..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <select
-        value={filterStatus}
-        onChange={(e) => setFilterStatus(e.target.value)}
-      >
-        <option value="All">All</option>
-        <option value="Want to Learn">Want to Learn</option>
-        <option value="Noted">Noted</option>
-        <option value="Learned">Learned</option>
-      </select>
-      <select
-        value={sortAttribute}
-        onChange={(e) => setSortAttribute(e.target.value)}
-      >
-        <option value="id">ID</option>
-        <option value="front">Front</option>
-        <option value="back">Back</option>
-        <option value="lastModified">Last Modified</option>
-      </select>
-      {sortedCards.map((flashCard) => (
-        <FlashCards
-          key={flashCard.id}
-          flashCard={flashCard}
-          onDelete={onDelete}
-          onEdit={handleEdit}
-          onUpdate={(front, back) =>
-            handleUpdate(flashCard.id, front, back, setFlashCards)
-          }
+    <div>
+      <div className="card-container">
+        <input
+          type="text"
+          placeholder="Search cards..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-      ))}
-      <CreateCard
-        onClose={() => setCreateCardModalOpen(false)}
-        onAddCard={(newCard) => {
-          handleAddCard(newCard);
-          setCreateCardModalOpen(false);
-        }}
-        flashCards={flashCards}
-        setFlashCards={setFlashCards}
-        editingCardId={setEditingCardId}
-      />
+        <select
+          value={filterStatus}
+          onChange={(e) => setFilterStatus(e.target.value)}
+        >
+          <option value="All">All</option>
+          <option value="Want to Learn">Want to Learn</option>
+          <option value="Noted">Noted</option>
+          <option value="Learned">Learned</option>
+        </select>
+        <select
+          value={sortAttribute}
+          onChange={(e) => setSortAttribute(e.target.value)}
+        >
+          <option value="id">ID</option>
+          <option value="front">Front</option>
+          <option value="back">Back</option>
+          <option value="lastModified">Last Modified</option>
+        </select>
+        <button
+          className="btn add-card-button"
+          onClick={() => setIsAddCardFormVisible(true)}
+        >
+          Add Card
+        </button>
+      </div>
+
+      {isAddCardFormVisible && (
+        <div className="add-card-form-container">
+          {isAddCardFormVisible && <AddCardForm onAddCard={handleAddCard} />}
+        </div>
+      )}
+
+      <div className="card-container">
+        {sortedCards.map((flashCard) => (
+          <FlashCards
+            key={flashCard.id}
+            flashCard={flashCard}
+            onDelete={onDelete}
+            onUpdate={(front, back) =>
+              handleUpdate(flashCard.id, front, back, updateFlashCards)
+            }
+          />
+        ))}
+      </div>
     </div>
   );
 }

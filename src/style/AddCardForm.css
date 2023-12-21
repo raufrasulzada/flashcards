@@ -1,0 +1,38 @@
+.add-card-form {
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 25px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-card-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.add-card-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.form-buttons button {
+  padding: 8px 15px;
+  background-color: #3ba6ec;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
