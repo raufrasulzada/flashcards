@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import FlashCards from "./FlashCards";
 import AddCardForm from "./AddCardForm";
 import { handleUpdate } from "./FlashCards";
+import "./style/Spinner.css";
+
+const PAGE_SIZE = 15;
 
 const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
   const [flashCards, setLocalFlashCards] = useState([]);
@@ -10,13 +13,64 @@ const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
   const [sortAttribute, setSortAttribute] = useState("lastModified");
   const [isAddCardFormVisible, setIsAddCardFormVisible] = useState(false);
   const [selectedCards, setSelectedCards] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
+
+  const pageRef = useRef(1);
 
   useEffect(() => {
-    fetch("http://localhost:3000/flashCards")
-      .then((response) => response.json())
-      .then((data) => setLocalFlashCards(data))
-      .catch((error) => console.error("Error fetching flash cards:", error));
+    fetchFlashCards();
   }, []);
+
+  const fetchFlashCards = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/flashCards?_page=1&_limit=${PAGE_SIZE}`
+      );
+      const data = await response.json();
+      setLocalFlashCards(data);
+    } catch (error) {
+      console.error("Error fetching flash cards:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleScroll = () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const scrollHeight = document.documentElement.scrollHeight;
+
+    if (scrollTop + windowHeight >= scrollHeight - 50 && !loading) {
+      fetchMoreFlashCards();
+    }
+  };
+
+  const fetchMoreFlashCards = useCallback(async () => {
+    setLoading(true);
+    try {
+      const nextPage = pageRef.current + 1;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch(
+        `http://localhost:3000/flashCards?_page=${nextPage}&_limit=${PAGE_SIZE}`
+      );
+      const data = await response.json();
+      setLocalFlashCards((prevFlashCards) => [...prevFlashCards, ...data]);
+      pageRef.current = nextPage;
+    } catch (error) {
+      console.error("Error fetching more flash cards:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
 
   const handleAddCard = (newCard) => {
     fetch("http://localhost:3000/flashCards", {
@@ -172,6 +226,9 @@ const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
           />
         ))}
       </div>
+      <h1 className="loading-text">
+        {loading && !isFetchingMore && <div>Loading...</div>}
+      </h1>
     </div>
   );
 };
