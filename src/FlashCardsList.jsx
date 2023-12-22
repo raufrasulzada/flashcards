@@ -3,12 +3,13 @@ import FlashCards from "./FlashCards";
 import AddCardForm from "./AddCardForm";
 import { handleUpdate } from "./FlashCards";
 
-function FlashCardsList({ onDelete, setFlashCards: updateFlashCards }) {
+const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
   const [flashCards, setLocalFlashCards] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
   const [sortAttribute, setSortAttribute] = useState("lastModified");
   const [isAddCardFormVisible, setIsAddCardFormVisible] = useState(false);
+  const [selectedCards, setSelectedCards] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:3000/flashCards")
@@ -40,6 +41,36 @@ function FlashCardsList({ onDelete, setFlashCards: updateFlashCards }) {
       });
   };
 
+  const handleCheckboxChange = (cardId) => {
+    if (selectedCards.includes(cardId)) {
+      setSelectedCards((prevSelectedCards) =>
+        prevSelectedCards.filter((id) => id !== cardId)
+      );
+    } else {
+      setSelectedCards((prevSelectedCards) => [...prevSelectedCards, cardId]);
+    }
+  };
+
+  const handleShareCard = () => {
+    const selectedCardDetails = selectedCards.map((cardId) => {
+      const selectedCard = flashCards.find((card) => card.id === cardId);
+      return {
+        id: selectedCard.id,
+        front: selectedCard.front,
+        back: selectedCard.back,
+        lastModified: selectedCard.lastModified,
+        status: selectedCard.status,
+      };
+    });
+
+    const emailBody = JSON.stringify(selectedCardDetails, null, 2);
+    const emailSubject = "Flash Cards Selection";
+
+    window.location.href = `mailto:?subject=${encodeURIComponent(
+      emailSubject
+    )}&body=${encodeURIComponent(emailBody)}`;
+  };
+
   const sortedCards = flashCards
     .filter((card) => {
       const frontText = String(card.front);
@@ -69,6 +100,7 @@ function FlashCardsList({ onDelete, setFlashCards: updateFlashCards }) {
       }
       return 0;
     });
+
   return (
     <div>
       <div className="card-container">
@@ -97,10 +129,22 @@ function FlashCardsList({ onDelete, setFlashCards: updateFlashCards }) {
           <option value="lastModified">Last Modified</option>
         </select>
         <button
-          className="btn add-card-button"
+          className={`btn add-card-button ${
+            selectedCards.length > 0 ? "selected-cards" : ""
+          }`}
           onClick={() => setIsAddCardFormVisible(true)}
         >
           Add Card
+        </button>
+
+        <button
+          className="btn share-card-button"
+          onClick={handleShareCard}
+          style={{
+            visibility: selectedCards.length > 0 ? "visible" : "hidden",
+          }}
+        >
+          Share Card
         </button>
       </div>
 
@@ -122,11 +166,14 @@ function FlashCardsList({ onDelete, setFlashCards: updateFlashCards }) {
             onUpdate={(front, back) =>
               handleUpdate(flashCard.id, front, back, updateFlashCards)
             }
+            selectedCards={selectedCards}
+            setSelectedCards={setSelectedCards}
+            onCheckboxChange={handleCheckboxChange}
           />
         ))}
       </div>
     </div>
   );
-}
+};
 
 export default FlashCardsList;

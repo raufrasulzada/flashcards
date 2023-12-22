@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
+import "./style/ShareCards.css";
+
 const currentDate = new Date().toISOString().split("T")[0];
 
 const handleUpdate = (id, front, back, setFlashCards) => {
@@ -31,14 +33,15 @@ const handleUpdate = (id, front, back, setFlashCards) => {
 
 export { handleUpdate };
 
-export default function FlashCards({
+const FlashCards = ({
   flashCard,
   onDelete,
-  onEdit,
   onUpdate,
   flashCards,
   setFlashCards,
-}) {
+  selectedCards,
+  setSelectedCards,
+}) => {
   const [turn, setTurn] = useState(false);
   const [height, setHeight] = useState("initial");
   const [status, setStatus] = useState(flashCard.status || "Want to Learn");
@@ -77,10 +80,47 @@ export default function FlashCards({
     e.stopPropagation();
     setEditMode(false);
     setTurn(!turn);
-    onEdit(flashCard.id, editedFront, editedBack);
-    if (onUpdate) {
-      onUpdate(editedFront, editedBack, flashCards, setFlashCards);
+    onUpdate(editedFront, editedBack);
+    if (selectedCards.includes(flashCard.id)) {
+      handleSelectedCardsUpdate(editedFront, editedBack);
     }
+  };
+
+  const handleCheckboxClick = (id) => {
+    setSelectedCards((prevSelected) => {
+      return prevSelected.includes(id)
+        ? prevSelected.filter((selectedId) => selectedId !== id)
+        : [...prevSelected, id];
+    });
+  };
+
+  const handleSelectedCardsUpdate = (front, back) => {
+    const updatedCards = flashCards.map((card) =>
+      selectedCards.includes(card.id)
+        ? { ...card, front, back, lastModified: currentDate }
+        : card
+    );
+
+    fetch("http://localhost:3000/flashCards", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedCards),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.error("Failed to update selected cards on server");
+          throw new Error("Failed to update selected cards on server");
+        }
+        return response.json();
+      })
+      .then((updatedCards) => {
+        setFlashCards(updatedCards);
+      })
+      .catch((error) => {
+        console.error("Error updating selected cards:", error);
+      });
   };
 
   const handleMarkAsNoted = (e) => {
@@ -146,6 +186,25 @@ export default function FlashCards({
         </>
       ) : (
         <>
+          {!turn && (
+            <div
+              className="checkbox-container"
+              style={{
+                position: "absolute",
+                bottom: "0",
+                right: "10px",
+                zIndex: 1,
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <input
+                type="checkbox"
+                checked={selectedCards.includes(flashCard.id)}
+                onChange={() => {}}
+                onClick={() => handleCheckboxClick(flashCard.id)}
+              />
+            </div>
+          )}
           <div className="front" ref={frontEl}>
             {editedFront}
           </div>
@@ -172,4 +231,6 @@ export default function FlashCards({
       )}
     </div>
   );
-}
+};
+
+export default FlashCards;
