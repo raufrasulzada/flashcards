@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Flash Cards App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Flash Cards App! This application allows you to create, manage, and study flashcards.
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+Follow the instructions below to set up and run the React app along with the JSON-Server.
 
-### `npm start`
+### Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Make sure you have the following installed on your machine:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js and npm
+- Git
 
-### `npm test`
+### Clone the Repository
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone https://github.com/raufrasulzada/flashcards.git
+cd flashcards
+```
 
-### `npm run build`
+### Required Dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- npm install -g json-server
+- npm install react-router-dom@latest
+- npm install react-infinite-scroll-component
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Start the Application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To start the application, you have to first run the json server in one terminal, and then start the react application in another terminal:
 
-### `npm run eject`
+- npm run json-server
+- npm start
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Usage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Access the Flash Cards App in your browser at http://localhost:3001/flashcards.
+- Utilizing the Add Card button, you can add new cards through adding front (question) and back (answer) details of cards.
+- You can delete any card by simply hovering over them and clicking on the delete button.
+- You can edit the cards by simply hovering over them and clicking on the edit button. When you click on the button, you will see two fields for updating the question and answer.
+- Study flash cards with the provided features. By clicking on Update Status, you can update the card status to "Noted" and "Learned".
+- Using the search box, you can search over the cards. The searching can be done using question and answer text.
+- Using the filtering, you can display particular cards with the selected status, including "All", "Want to Learn", "Noted", and "Learned".
+- Using the sorting, you can display cards based on ID, Question, Answer, and Last Modification date.
+- When you mark at least one of the checkboxes, share button will appear so that you can send the details of cards over e-mail in json format.

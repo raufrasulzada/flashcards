@@ -51,7 +51,7 @@ const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
     setLoading(true);
     try {
       const nextPage = pageRef.current + 1;
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 800));
       const response = await fetch(
         `http://localhost:3000/flashCards?_page=${nextPage}&_limit=${PAGE_SIZE}`
       );
