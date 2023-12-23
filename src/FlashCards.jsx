@@ -186,7 +186,10 @@ const FlashCards = ({
   }, [flashCard]);
 
   function dragStartHandler(e, flashCard) {
-    setCurrentCard({ ...flashCard });
+    e.dataTransfer.setData(
+      "text/plain",
+      JSON.stringify({ id: flashCard.id, order: flashCard.order })
+    );
     console.log("drag", flashCard);
   }
 
@@ -199,15 +202,19 @@ const FlashCards = ({
     e.target.style.background = "lightgray";
   }
 
-  async function dropHandler(e, targetFlashCard) {
+  const dropHandlerWrapper = (e, targetFlashCard) => {
     e.preventDefault();
 
-    if (currentCard && targetFlashCard) {
+    const draggedCardData = JSON.parse(e.dataTransfer.getData("text/plain"));
+    const draggedCardId = draggedCardData.id;
+    const draggedCardOrder = draggedCardData.order;
+
+    if (draggedCardId && targetFlashCard) {
       const updatedFlashCards = flashCards.map((c) => {
         if (c.id === targetFlashCard.id) {
-          return { ...c, order: currentCard.order };
+          return { ...c, order: draggedCardOrder };
         }
-        if (c.id === currentCard.id) {
+        if (c.id === draggedCardId) {
           return { ...c, order: targetFlashCard.order };
         }
         return c;
@@ -225,26 +232,27 @@ const FlashCards = ({
         });
       });
 
-      await Promise.all(updateOrderPromises);
-
-      setFlashCards(updatedFlashCards);
+      Promise.all(updateOrderPromises)
+        .then(() => {
+          const uniqueFlashCards = [
+            ...new Map(
+              updatedFlashCards.map((card) => [card.id, card])
+            ).values(),
+          ];
+          setFlashCards(uniqueFlashCards);
+        })
+        .catch((error) => {
+          console.error("Error updating order:", error);
+        });
     } else {
       console.error(
-        "Invalid currentCard or targetFlashCard:",
-        currentCard,
+        "Invalid draggedCard or targetFlashCard:",
+        draggedCardId,
         targetFlashCard
       );
     }
 
     e.target.style.background = "white";
-  }
-
-  const dropHandlerWrapper = (e, flashCard) => {
-    if (currentCard) {
-      dropHandler(e, flashCard);
-    } else {
-      console.error("Invalid currentCard:", currentCard);
-    }
   };
 
   return (

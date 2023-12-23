@@ -75,14 +75,22 @@ const FlashCardsList = ({ onDelete, setFlashCards: setFlashCards }) => {
         `http://localhost:3000/flashCards?_page=${nextPage}&_limit=${PAGE_SIZE}`
       );
       const data = await response.json();
-      setLocalFlashCards((prevFlashCards) => [...prevFlashCards, ...data]);
+      const updatedData = data.map((card, index) => ({
+        ...card,
+        order: flashCards.length + index + 1,
+      }));
+
+      setLocalFlashCards((prevFlashCards) => [
+        ...prevFlashCards,
+        ...updatedData,
+      ]);
       pageRef.current = nextPage;
     } catch (error) {
       console.error("Error fetching more flash cards:", error);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [flashCards]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
