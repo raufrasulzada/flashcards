@@ -36,6 +36,7 @@ function App() {
           back: card.back,
           status: card.status || "Want to Learn",
           lastModified: card.lastModified || "unknown",
+          order: card.order,
         }));
         setFlashCards(updatedFlashCards);
       })
@@ -45,8 +46,17 @@ function App() {
   }
 
   useEffect(() => {
+    const logs = localStorage.getItem("logs");
+    if (logs) {
+      console.log("Logs retrieved:", JSON.parse(logs));
+    }
+
     fetchFlashCards(setFlashCards);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("logs", JSON.stringify(flashCards));
+  }, [flashCards]);
 
   return (
     <Router>

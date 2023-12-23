@@ -4,31 +4,56 @@ import "./style/ShareCards.css";
 
 const currentDate = new Date().toISOString().split("T")[0];
 
-const handleUpdate = (id, front, back, setFlashCards) => {
-  fetch(`http://localhost:3000/flashCards/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ front, back, lastModified: currentDate }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        console.error("Failed to update card on server");
-        throw new Error("Failed to update card on server");
+const handleUpdate = async (
+  id,
+  front,
+  back,
+  order,
+  flashCards,
+  setFlashCards
+) => {
+  try {
+    const updatedFlashCards = flashCards.map((card) => {
+      if (card.id === id) {
+        return {
+          ...card,
+          front,
+          back,
+          order,
+        };
       }
-      return response.json();
-    })
-    .then((updatedCard) => {
-      setFlashCards((prevCards) =>
-        prevCards.map((card) =>
-          card.id === updatedCard.id ? updatedCard : card
-        )
-      );
-    })
-    .catch((error) => {
-      console.error("Error updating card:", error);
+      return card;
     });
+
+    await fetch(`http://localhost:3000/flashCards/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        order,
+      }),
+    });
+    const updateOrderPromises = updatedFlashCards
+      .filter((card) => card.id !== id)
+      .map((card) => {
+        return fetch(`http://localhost:3000/flashCards/${card.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            order: card.order,
+          }),
+        });
+      });
+
+    await Promise.all(updateOrderPromises);
+
+    setFlashCards(updatedFlashCards);
+  } catch (error) {
+    console.error("Error updating card:", error);
+  }
 };
 
 export { handleUpdate };
@@ -48,6 +73,7 @@ const FlashCards = ({
   const [editMode, setEditMode] = useState(false);
   const [editedFront, setEditedFront] = useState(flashCard.front);
   const [editedBack, setEditedBack] = useState(flashCard.back);
+  const [currentCard, setCurrentCard] = useState(flashCard);
 
   const frontEl = useRef();
   const backEl = useRef();
@@ -159,6 +185,68 @@ const FlashCards = ({
     setEditedBack(flashCard.back);
   }, [flashCard]);
 
+  function dragStartHandler(e, flashCard) {
+    setCurrentCard({ ...flashCard });
+    console.log("drag", flashCard);
+  }
+
+  function dragEndHandler(e) {
+    e.target.style.background = "white";
+  }
+
+  function dragOverHandler(e) {
+    e.preventDefault();
+    e.target.style.background = "lightgray";
+  }
+
+  async function dropHandler(e, targetFlashCard) {
+    e.preventDefault();
+
+    if (currentCard && targetFlashCard) {
+      const updatedFlashCards = flashCards.map((c) => {
+        if (c.id === targetFlashCard.id) {
+          return { ...c, order: currentCard.order };
+        }
+        if (c.id === currentCard.id) {
+          return { ...c, order: targetFlashCard.order };
+        }
+        return c;
+      });
+
+      const updateOrderPromises = updatedFlashCards.map((card) => {
+        return fetch(`http://localhost:3000/flashCards/${card.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            order: card.order,
+          }),
+        });
+      });
+
+      await Promise.all(updateOrderPromises);
+
+      setFlashCards(updatedFlashCards);
+    } else {
+      console.error(
+        "Invalid currentCard or targetFlashCard:",
+        currentCard,
+        targetFlashCard
+      );
+    }
+
+    e.target.style.background = "white";
+  }
+
+  const dropHandlerWrapper = (e, flashCard) => {
+    if (currentCard) {
+      dropHandler(e, flashCard);
+    } else {
+      console.error("Invalid currentCard:", currentCard);
+    }
+  };
+
   return (
     <div
       key={flashCard.id}
@@ -167,6 +255,22 @@ const FlashCards = ({
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onDragStart={(e) => {
+        dragStartHandler(e, flashCard);
+      }}
+      onDragLeave={(e) => {
+        dragEndHandler(e);
+      }}
+      onDragEnd={(e) => {
+        dragEndHandler(e);
+      }}
+      onDragOver={(e) => {
+        dragOverHandler(e);
+      }}
+      onDrop={(e) => {
+        dropHandlerWrapper(e, flashCard);
+      }}
+      draggable={true}
     >
       {editMode ? (
         <>

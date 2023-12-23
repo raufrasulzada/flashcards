@@ -235,3 +235,26 @@ nav ul li a {
   color: white;
   font-weight: bold;
 }
+
+@media only screen and (max-width: 992px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .add-card-button {
+    left: 50%;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}

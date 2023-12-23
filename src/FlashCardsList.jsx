@@ -6,7 +6,7 @@ import "./style/Spinner.css";
 
 const PAGE_SIZE = 15;
 
-const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
+const FlashCardsList = ({ onDelete, setFlashCards: setFlashCards }) => {
   const [flashCards, setLocalFlashCards] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
@@ -26,7 +26,7 @@ const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/flashCards?_page=1&_limit=${PAGE_SIZE}`
+        `http://localhost:3000/flashCards?_sort=order&_order=asc&_page=1&_limit=${PAGE_SIZE}`
       );
       const existingData = await response.json();
 
@@ -35,10 +35,18 @@ const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
       );
       const lastAddedData = await lastAddedResponse.json();
 
-      const mergedFlashCards = [
-        ...lastAddedData,
-        ...existingData.filter((card) => card.id !== lastAddedData[0]?.id),
-      ];
+      const mergedFlashCards =
+        lastAddedData.length > 0
+          ? [
+              ...existingData,
+              ...lastAddedData.filter(
+                (card) =>
+                  !existingData.some(
+                    (existingCard) => existingCard.id === card.id
+                  )
+              ),
+            ]
+          : existingData;
 
       setLocalFlashCards(mergedFlashCards);
     } catch (error) {
@@ -84,25 +92,34 @@ const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
   }, [handleScroll]);
 
   const handleAddCard = (newCard) => {
-    fetch("http://localhost:3000/flashCards", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        front: newCard.front,
-        back: newCard.back,
-        status: "Want to Learn",
-        lastModified: new Date().toISOString().split("T")[0],
-      }),
-    })
+    fetch("http://localhost:3000/flashCards?_sort=id&_order=desc&_limit=1")
       .then((response) => response.json())
-      .then((addedCard) => {
-        setLocalFlashCards([...flashCards, addedCard]);
-        setIsAddCardFormVisible(false);
+      .then(([latestCard]) => {
+        const nextId = latestCard ? latestCard.id + 1 : 1;
+        fetch("http://localhost:3000/flashCards", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            front: newCard.front,
+            back: newCard.back,
+            status: "Want to Learn",
+            lastModified: new Date().toISOString().split("T")[0],
+            order: nextId,
+          }),
+        })
+          .then((response) => response.json())
+          .then((addedCard) => {
+            setLocalFlashCards([...flashCards, addedCard]);
+            setIsAddCardFormVisible(false);
+          })
+          .catch((error) => {
+            console.error("Error adding card:", error);
+          });
       })
       .catch((error) => {
-        console.error("Error adding card:", error);
+        console.error("Error fetching latest card:", error);
       });
   };
 
@@ -125,6 +142,7 @@ const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
         back: selectedCard.back,
         lastModified: selectedCard.lastModified,
         status: selectedCard.status,
+        order: selectedCard.order,
       };
     });
 
@@ -227,13 +245,15 @@ const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
           <FlashCards
             key={flashCard.id}
             flashCard={flashCard}
+            flashCards={flashCards}
             onDelete={onDelete}
-            onUpdate={(front, back) =>
-              handleUpdate(flashCard.id, front, back, updateFlashCards)
+            onUpdate={(id, front, back, flashCards, order) =>
+              handleUpdate(id, front, back, order, flashCards, setFlashCards)
             }
             selectedCards={selectedCards}
             setSelectedCards={setSelectedCards}
             onCheckboxChange={handleCheckboxChange}
+            setFlashCards={setFlashCards}
           />
         ))}
       </div>
