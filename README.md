@@ -35,6 +35,7 @@ To start the application, you have to first run the json server in one terminal,
 
 ## Usage
 
+- Link to hosted GitHub page: https://raufrasulzada.github.io/flashcards.
 - Access the Flash Cards App in your browser at http://localhost:3001/flashcards.
 - Utilizing the Add Card button, you can add new cards through adding front (question) and back (answer) details of cards.
 - You can delete any card by simply hovering over them and clicking on the delete button.

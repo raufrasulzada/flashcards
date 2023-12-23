@@ -28,8 +28,19 @@ const FlashCardsList = ({ onDelete, setFlashCards: updateFlashCards }) => {
       const response = await fetch(
         `http://localhost:3000/flashCards?_page=1&_limit=${PAGE_SIZE}`
       );
-      const data = await response.json();
-      setLocalFlashCards(data);
+      const existingData = await response.json();
+
+      const lastAddedResponse = await fetch(
+        `http://localhost:3000/flashCards?_page=1&_limit=1&_sort=lastModified&_order=desc`
+      );
+      const lastAddedData = await lastAddedResponse.json();
+
+      const mergedFlashCards = [
+        ...lastAddedData,
+        ...existingData.filter((card) => card.id !== lastAddedData[0]?.id),
+      ];
+
+      setLocalFlashCards(mergedFlashCards);
     } catch (error) {
       console.error("Error fetching flash cards:", error);
     } finally {
