@@ -10,8 +10,9 @@ Follow the instructions below to set up and run the React app along with the JSO
 
 Make sure you have the following installed on your machine:
 
+- Web browser (Google Chrome, Opera, etc.)
+- IDE (e.g., Visual Studio Code)
 - Node.js and npm
-- Git
 
 ### Clone the Repository
 
@@ -45,3 +46,4 @@ To start the application, you have to first run the json server in one terminal,
 - Using the filtering, you can display particular cards with the selected status, including "All", "Want to Learn", "Noted", and "Learned".
 - Using the sorting, you can display cards based on ID, Question, Answer, and Last Modification date.
 - When you mark at least one of the checkboxes, share button will appear so that you can send the details of cards over e-mail in json format.
+- You can change the orders of cards by simply dragging one and dropping it to another card.
