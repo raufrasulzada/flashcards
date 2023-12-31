@@ -20,6 +20,7 @@ const handleUpdate = async (
           front,
           back,
           order,
+          lastModified: currentDate,
         };
       }
       return card;
@@ -31,9 +32,13 @@ const handleUpdate = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        front,
+        back,
         order,
+        lastModified: currentDate,
       }),
     });
+
     const updateOrderPromises = updatedFlashCards
       .filter((card) => card.id !== id)
       .map((card) => {
@@ -73,7 +78,6 @@ const FlashCards = ({
   const [editMode, setEditMode] = useState(false);
   const [editedFront, setEditedFront] = useState(flashCard.front);
   const [editedBack, setEditedBack] = useState(flashCard.back);
-  const [currentCard, setCurrentCard] = useState(flashCard);
 
   const frontEl = useRef();
   const backEl = useRef();
@@ -106,7 +110,14 @@ const FlashCards = ({
     e.stopPropagation();
     setEditMode(false);
     setTurn(!turn);
-    onUpdate(editedFront, editedBack);
+    handleUpdate(
+      flashCard.id,
+      editedFront,
+      editedBack,
+      flashCards.findIndex((card) => card.id === flashCard.id) + 1,
+      flashCards,
+      setFlashCards
+    );
     if (selectedCards.includes(flashCard.id)) {
       handleSelectedCardsUpdate(editedFront, editedBack);
     }
@@ -201,7 +212,6 @@ const FlashCards = ({
     e.preventDefault();
     e.target.style.background = "lightgray";
   }
-
   const dropHandlerWrapper = (e, targetFlashCard) => {
     e.preventDefault();
 
@@ -210,12 +220,26 @@ const FlashCards = ({
     const draggedCardOrder = draggedCardData.order;
 
     if (draggedCardId && targetFlashCard) {
+      const currentDate = new Date().toISOString().split("T")[0];
+
+      const updatedDraggedCard = {
+        ...flashCards.find((c) => c.id === draggedCardId),
+        order: targetFlashCard.order,
+        lastModified: currentDate,
+      };
+
+      const updatedTargetCard = {
+        ...flashCards.find((c) => c.id === targetFlashCard.id),
+        order: draggedCardOrder,
+        lastModified: currentDate,
+      };
+
       const updatedFlashCards = flashCards.map((c) => {
         if (c.id === targetFlashCard.id) {
-          return { ...c, order: draggedCardOrder };
+          return updatedDraggedCard;
         }
         if (c.id === draggedCardId) {
-          return { ...c, order: targetFlashCard.order };
+          return updatedTargetCard;
         }
         return c;
       });
@@ -228,6 +252,7 @@ const FlashCards = ({
           },
           body: JSON.stringify({
             order: card.order,
+            lastModified: currentDate,
           }),
         });
       });

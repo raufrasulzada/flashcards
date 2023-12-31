@@ -25,7 +25,6 @@ cd flashcards
 
 - npm install -g json-server
 - npm install react-router-dom@latest
-- npm install react-infinite-scroll-component
 
 ### Start the Application
 
