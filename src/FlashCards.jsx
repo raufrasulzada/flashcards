@@ -163,32 +163,34 @@ const FlashCards = ({
 
   const handleMarkAsNoted = (e) => {
     e.stopPropagation();
-    const newStatus = status === "Want to Learn" ? "Noted" : "Learned";
-    const currentDate = new Date().toISOString().split("T")[0];
+    const statusChanged = status === "Want to Learn" ? "Noted" : "Learned";
     fetch(`http://localhost:3000/flashCards/${flashCard.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ status: newStatus, lastModified: currentDate }),
+      body: JSON.stringify({
+        status: statusChanged,
+        modificationDate: currentDate,
+      }),
     })
       .then((response) => {
         if (!response.ok) {
-          console.error("Failed to update status on server");
-          throw new Error("Failed to update status on server");
+          console.error("There appeared error while changing the status...");
+          throw new Error("There appeared error while changing the status...");
         }
         return response.json();
       })
-      .then((updatedCard) => {
-        setFlashCards((prevCards) =>
-          prevCards.map((card) =>
-            card.id === updatedCard.id ? updatedCard : card
+      .then((cardUpdated) => {
+        setFlashCards((previousCards) =>
+          previousCards.map((card) =>
+            card.id === cardUpdated.id ? cardUpdated : card
           )
         );
-        setStatus(newStatus);
+        setStatus(statusChanged);
       })
       .catch((error) => {
-        console.error("Error updating status:", error);
+        console.error("There appeared error while changing the status:", error);
       });
   };
 
