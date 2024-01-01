@@ -45,6 +45,6 @@ To start the application, you have to first run the json server in one terminal,
 - Study flash cards with the provided features. By clicking on Update Status, you can update the card status to "Noted" and "Learned".
 - Using the search box, you can search over the cards. The searching can be done using question and answer text.
 - Using the filtering, you can display particular cards with the selected status, including "All", "Want to Learn", "Noted", and "Learned".
-- Using the sorting, you can display cards based on ID, Question, Answer, and Last Modification date.
+- Using the sorting, you can display cards based on ID, Question, Answer, Order, and Last Modification date.
 - When you mark at least one of the checkboxes, share button will appear so that you can send the details of cards over e-mail in json format.
-- You can change the orders of cards by simply dragging one and dropping it to another card.
+- You can change the orders of cards by changing the sorting to Order. Then you will be able to re-order cards by simply dragging one and dropping it to another card.

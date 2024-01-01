@@ -71,6 +71,7 @@ const FlashCards = ({
   setFlashCards,
   selectedCards,
   setSelectedCards,
+  enableDragDrop,
 }) => {
   const [turn, setTurn] = useState(false);
   const [height, setHeight] = useState("initial");
@@ -220,18 +221,14 @@ const FlashCards = ({
     const draggedCardOrder = draggedCardData.order;
 
     if (draggedCardId && targetFlashCard) {
-      const currentDate = new Date().toISOString().split("T")[0];
-
       const updatedDraggedCard = {
         ...flashCards.find((c) => c.id === draggedCardId),
         order: targetFlashCard.order,
-        lastModified: currentDate,
       };
 
       const updatedTargetCard = {
         ...flashCards.find((c) => c.id === targetFlashCard.id),
         order: draggedCardOrder,
-        lastModified: currentDate,
       };
 
       const updatedFlashCards = flashCards.map((c) => {
@@ -252,7 +249,6 @@ const FlashCards = ({
           },
           body: JSON.stringify({
             order: card.order,
-            lastModified: currentDate,
           }),
         });
       });
@@ -303,7 +299,7 @@ const FlashCards = ({
       onDrop={(e) => {
         dropHandlerWrapper(e, flashCard);
       }}
-      draggable={true}
+      draggable={enableDragDrop}
     >
       {editMode ? (
         <>

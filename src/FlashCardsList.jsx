@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import FlashCards from "./FlashCards";
+import FlashCards, { handleUpdate } from "./FlashCards";
 import AddCardForm from "./AddCardForm";
-import { handleUpdate } from "./FlashCards";
 import "./style/Spinner.css";
 
 const PAGE_SIZE = 15;
@@ -15,18 +14,15 @@ const FlashCardsList = ({ onDelete, setFlashCards: setFlashCards }) => {
   const [selectedCards, setSelectedCards] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
+  const [enableDragDrop, setEnableDragDrop] = useState(false);
 
   const pageRef = useRef(1);
-
-  useEffect(() => {
-    fetchFlashCards();
-  }, []);
 
   const fetchFlashCards = async () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/flashCards?_sort=order&_order=asc&_page=1&_limit=${PAGE_SIZE}`
+        `http://localhost:3000/flashCards?_sort=${sortAttribute}&_order=asc&_page=1&_limit=${PAGE_SIZE}`
       );
       const existingData = await response.json();
 
@@ -56,6 +52,35 @@ const FlashCardsList = ({ onDelete, setFlashCards: setFlashCards }) => {
     }
   };
 
+  const fetchOrderSortedFlashCards = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/flashCards?_sort=order&_order=asc`
+      );
+      const data = await response.json();
+      setLocalFlashCards(data);
+    } catch (error) {
+      console.error("Error fetching order sorted flash cards:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (sortAttribute === "order") {
+      fetchOrderSortedFlashCards();
+    } else {
+      fetchFlashCards();
+    }
+  }, [sortAttribute]);
+
+  const handleSortChange = (e) => {
+    const selectedSort = e.target.value;
+    setSortAttribute(selectedSort);
+    setEnableDragDrop(selectedSort === "order");
+  };
+
   const handleScroll = () => {
     const scrollTop = document.documentElement.scrollTop;
     const windowHeight = window.innerHeight;
@@ -67,30 +92,32 @@ const FlashCardsList = ({ onDelete, setFlashCards: setFlashCards }) => {
   };
 
   const fetchMoreFlashCards = useCallback(async () => {
-    setLoading(true);
-    try {
-      const nextPage = pageRef.current + 1;
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      const response = await fetch(
-        `http://localhost:3000/flashCards?_page=${nextPage}&_limit=${PAGE_SIZE}`
-      );
-      const data = await response.json();
-      const updatedData = data.map((card, index) => ({
-        ...card,
-        order: flashCards.length + index + 1,
-      }));
+    if (sortAttribute !== "order") {
+      setLoading(true);
+      try {
+        const nextPage = pageRef.current + 1;
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        const response = await fetch(
+          `http://localhost:3000/flashCards?_page=${nextPage}&_limit=${PAGE_SIZE}`
+        );
+        const data = await response.json();
+        const updatedData = data.map((card, index) => ({
+          ...card,
+          order: flashCards.length + index + 1,
+        }));
 
-      setLocalFlashCards((prevFlashCards) => [
-        ...prevFlashCards,
-        ...updatedData,
-      ]);
-      pageRef.current = nextPage;
-    } catch (error) {
-      console.error("Error fetching more flash cards:", error);
-    } finally {
-      setLoading(false);
+        setLocalFlashCards((prevFlashCards) => [
+          ...prevFlashCards,
+          ...updatedData,
+        ]);
+        pageRef.current = nextPage;
+      } catch (error) {
+        console.error("Error fetching more flash cards:", error);
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [flashCards]);
+  }, [flashCards, sortAttribute]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -186,6 +213,8 @@ const FlashCardsList = ({ onDelete, setFlashCards: setFlashCards }) => {
         return a.front.localeCompare(b.front);
       } else if (sortAttribute === "back") {
         return a.back.localeCompare(b.back);
+      } else if (sortAttribute === "order") {
+        return a.order - b.order;
       } else if (sortAttribute === "lastModified") {
         return new Date(b.lastModified) - new Date(a.lastModified);
       }
@@ -210,13 +239,11 @@ const FlashCardsList = ({ onDelete, setFlashCards: setFlashCards }) => {
           <option value="Noted">Noted</option>
           <option value="Learned">Learned</option>
         </select>
-        <select
-          value={sortAttribute}
-          onChange={(e) => setSortAttribute(e.target.value)}
-        >
+        <select value={sortAttribute} onChange={handleSortChange}>
           <option value="id">ID</option>
           <option value="front">Front</option>
           <option value="back">Back</option>
+          <option value="order">Order</option>
           <option value="lastModified">Last Modified</option>
         </select>
         <button
@@ -262,6 +289,7 @@ const FlashCardsList = ({ onDelete, setFlashCards: setFlashCards }) => {
             setSelectedCards={setSelectedCards}
             onCheckboxChange={handleCheckboxChange}
             setFlashCards={setFlashCards}
+            enableDragDrop={enableDragDrop}
           />
         ))}
       </div>
