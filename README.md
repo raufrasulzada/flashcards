@@ -26,6 +26,8 @@ cd flashcards
 - npm install -g json-server
 - npm install react-router-dom@latest
 
+## Make sure that in scripts of package.json, you have "json-server": "json-server public/data/db.json --port 3000".
+
 ### Start the Application
 
 To start the application, you have to first run the json server in one terminal, and then start the react application in another terminal:
