@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import FlashCards, { handleUpdate } from "./FlashCards";
 import AddCardForm from "./AddCardForm";
-import "./style/Spinner.css";
+import "./style/LoadingText.css";
 
 const PAGE_SIZE = 15;
 
@@ -22,7 +22,7 @@ const FlashCardsList = ({ onDelete, setFlashCards: setFlashCards }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/flashCards?_sort=${sortAttribute}&_order=asc&_page=1&_limit=${PAGE_SIZE}`
+        `http://localhost:3000/flashCards?_sort=${sortAttribute}&_order=desc&_page=1&_limit=${PAGE_SIZE}`
       );
       const existingData = await response.json();
 
