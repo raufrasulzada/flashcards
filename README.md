@@ -23,6 +23,7 @@ cd flashcards
 
 ### Required Dependencies
 
+- npm install
 - npm install -g json-server
 - npm install react-router-dom@latest
 
